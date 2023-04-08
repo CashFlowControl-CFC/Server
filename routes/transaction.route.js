@@ -9,8 +9,8 @@ router.post('/create', (req,res)=>{
 router.get('/',(req,res)=>{
     transactionController.getTransactions(req,res);
 })
-router.get('/:id', ()=>{
-    console.log('get');
+router.get('/:id', (req,res)=>{
+    transactionController.getTransactionByUserID(req,res,req.params.id)
 });
 
 

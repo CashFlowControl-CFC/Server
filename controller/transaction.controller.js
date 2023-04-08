@@ -23,5 +23,23 @@ class TransactionController {
             return res.status(400).send(err);
         })
     }
+    async getTransactionByUserID(req, res, id) {
+        console.log(id);
+        await Transaction.findAll({
+          where: {
+            user_id: id
+          }
+        })
+        .then(result => {
+          if(result.length > 0) {
+            return res.status(200).send(result);
+          } else {
+            return res.status(400).send('User with id: '+id+" haven't any transaction");
+          }
+        })
+        .catch(err => {
+          return res.status(400).send(err);
+        })
+      }
 }
 module.exports = new TransactionController();
