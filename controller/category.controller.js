@@ -104,6 +104,26 @@ class CategoryController {
             return res.status(400).send(err);
           });
       }
+      async GetParentCategories(req,res){
+        const category_id = req.params.category_id;
+        await Category.findAll({
+            where:{
+                parent_category:category_id
+            }
+        })
+            .then((result) => {
+                if(result.length>0){
+                    return res.status(200).send(result);
+                }else {
+                    return res
+                      .status(400)
+                      .send("Category with id: " + category_id + " haven't any ParentCategory");
+                  }
+            })
+            .catch((err) => {
+                return res.status(400).send(err);
+            });
+      }
 }
 
 module.exports = new CategoryController();
