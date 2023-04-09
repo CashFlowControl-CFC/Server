@@ -3,10 +3,14 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const bodyParser = require('body-parser');
 const db = require('./db');
-const Transactionroutes = require('./routes/transaction.route');
+
+const TransactionRoute = require('./routes/transaction.route');
+const CategoryRoute = require('./routes/category.route');
 
 app.use(bodyParser.json());
-app.use('/transaction',Transactionroutes);
+
+app.use('/transaction',TransactionRoute);
+app.use('/category',CategoryRoute);
 
 app.listen(PORT,()=>{
     db.sequelize;

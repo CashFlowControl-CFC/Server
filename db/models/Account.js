@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 
 module.exports = function(sequelize){
-    return sequelize.define('Transaction', {
+    return sequelize.define('Accounts', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -12,28 +12,21 @@ module.exports = function(sequelize){
         type: Sequelize.INTEGER,
         allowNull: false
       },
-      category_id: {
-        type: Sequelize.INTEGER,
-        allowNull: false
-      },
-      date: {
-        type: Sequelize.DATE,
-        allowNull: false
-      },
-      comment: {
+      name: {
         type: Sequelize.STRING,
-        allowNull: true
+        allowNull: false
       },
       cash: {
-        type: Sequelize.INTEGER,
-        allowNull: false
+        type: Sequelize.FLOAT,
+        allowNull: false,
+        defaultValue: 0
       },
-      isIncome: {
-        type: Sequelize.BOOLEAN,
-        allowNull: false
+      color: {
+        type: Sequelize.STRING,
+        allowNull: true
       }
     },{
       timestamps:false,
-      tableName:'Transaction'
+      tableName:'Account'
     });
 }
