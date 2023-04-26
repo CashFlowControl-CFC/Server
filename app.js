@@ -7,11 +7,14 @@ const db = require('./db');
 const TransactionRoute = require('./routes/transaction.route');
 const CategoryRoute = require('./routes/category.route');
 const LoadRoute = require('./routes/onLoad.route');
+const AccountRoute = require('./routes/account.route');
 app.use(bodyParser.json());
 
 app.use('/transaction',TransactionRoute);
 app.use('/category',CategoryRoute);
 app.use('/load',LoadRoute);
+app.use('/account',AccountRoute);
+
 
 app.listen(PORT,()=>{
     db.sequelize;

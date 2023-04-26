@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const onloadController = require('../controller/OnLoadController');
+const loadController = require('../controller/load.controller');
 
 router.get('/:user_id',async(req,res)=>{
-    await onloadController.combineTransactions(req,res);
+    await loadController.combineTransactions(req,res);
 });
 
 

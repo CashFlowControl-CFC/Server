@@ -1,9 +1,7 @@
-
-
 const { Transaction } = require("../db/index");
 const { Category } = require("../db/index");
 const db = require("../db");
-class OnLoadController {
+class LoadController {
     async getCategories(req, res) {
         const result = await Category.findAll();
         if (result.length > 0) {
@@ -74,6 +72,7 @@ class OnLoadController {
                             'image': category.image_link,
                             'isIncome': transaction.isIncome,
                             'date': formattedDate,
+                            'category_id':category.id
                         });
                     }
                 }
@@ -92,4 +91,4 @@ class OnLoadController {
 
 }
 
-module.exports = new OnLoadController();
+module.exports = new LoadController();
