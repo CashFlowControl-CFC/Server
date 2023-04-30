@@ -2,11 +2,7 @@ const { Category } = require("../db/index")
 const db = require("../db")
 class CategoryController {
     async getCategories(req, res) {
-        await Category.findAll({
-            where:{
-                parent_category:null
-            }
-        })
+        await Category.findAll()
             .then((result) => {
                 return res.status(200).send(result)
             })

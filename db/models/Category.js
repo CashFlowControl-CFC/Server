@@ -12,10 +12,6 @@ module.exports = function(sequelize){
           type: Sequelize.INTEGER,
           allowNull: false
         },
-        parent_category: {
-          type: Sequelize.INTEGER,
-          allowNull: true
-        },
         name: {
           type: Sequelize.STRING,
           allowNull: false,
@@ -27,6 +23,10 @@ module.exports = function(sequelize){
         },
         color: {
           type: Sequelize.STRING,
+          allowNull: false
+        },
+        isIncome: {
+          type: Sequelize.BOOLEAN,
           allowNull: false
         }
       },{
