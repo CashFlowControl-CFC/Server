@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize');
 
-const sequelize = new Sequelize('db_a9744c_cfc', 'a9744c_cfc','moremore2578',{
+const sequelize = new Sequelize('db_a9744c_nwallet', 'a9744c_nwallet','q1w2e3r4t5y6u7',{
     dialect:"mysql",
-    host:"MYSQL5045.site4now.net"
+    host:"MYSQL5044.site4now.net"
 })
 
 const Account = require('./models/Account')(sequelize);

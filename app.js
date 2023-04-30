@@ -9,7 +9,7 @@ const CategoryRoute = require('./routes/category.route');
 const LoadRoute = require('./routes/onLoad.route');
 const AccountRoute = require('./routes/account.route');
 const UserRoute = require('./routes/user.route')
-
+const RemainderRoute = require('./routes/remainder.route')
 app.use(bodyParser.json());
 app.use(cors());
 
@@ -18,6 +18,8 @@ app.use('/category',CategoryRoute);
 app.use('/load',LoadRoute);
 app.use('/account',AccountRoute);
 app.use('/user',UserRoute)
+app.use('/remainder',RemainderRoute)
+
 
 app.listen(PORT,()=>{
     db.sequelize;

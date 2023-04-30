@@ -13,8 +13,7 @@ module.exports = function (sequelize) {
             type: Sequelize.INTEGER, 
             allowNull: false 
         },
-        transaction_id: 
-        { 
+        category_id:{
             type: Sequelize.INTEGER, 
             allowNull: false 
         },
