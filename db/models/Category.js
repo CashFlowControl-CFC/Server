@@ -1,4 +1,4 @@
-const Sequelize = require('sequelize');
+const Sequelize = require('sequelize')
 
 module.exports = function(sequelize){
     return sequelize.define('Category', {
@@ -32,5 +32,5 @@ module.exports = function(sequelize){
       },{
         timestamps:false,
         tableName:'Category'
-      });
+      })
 }

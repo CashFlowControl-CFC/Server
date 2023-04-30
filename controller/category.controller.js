@@ -1,5 +1,5 @@
-const { Category } = require("../db/index");
-const db = require("../db");
+const { Category } = require("../db/index")
+const db = require("../db")
 class CategoryController {
     async getCategories(req, res) {
         await Category.findAll({
@@ -8,15 +8,15 @@ class CategoryController {
             }
         })
             .then((result) => {
-                return res.status(200).send(result);
+                return res.status(200).send(result)
             })
             .catch((err) => {
-                return res.status(400).send(err.message);
-            });
+                return res.status(400).send(err.message)
+            })
     }
     async addCategory(req, res) {
-        console.log(req.body);
-        const { user_id, parent_category, name, image_link, color } = req.body;
+        console.log(req.body)
+        const { user_id, parent_category, name, image_link, color } = req.body
         try {
             const result = await Category.create({
                 user_id: user_id,
@@ -24,10 +24,10 @@ class CategoryController {
                 name: name,
                 image_link: image_link,
                 color: color,
-            });
-            return res.status(200).send(result);
+            })
+            return res.status(200).send(result)
         } catch (err) {
-            return res.status(400).send(err);
+            return res.status(400).send(err.message)
         }
     }
     async deleteCategoryByID(req, res) {
@@ -40,7 +40,7 @@ class CategoryController {
                 if (result === 0) {
                     return res
                         .status(400)
-                        .send("Category with id " + req.params.category_id + " not found.");
+                        .send("Category with id " + req.params.category_id + " not found.")
                 }
                 return res
                     .status(200)
@@ -48,11 +48,11 @@ class CategoryController {
                         "Category with id " +
                         req.params.category_id +
                         " was deleted successfully."
-                    );
+                    )
             })
             .catch((err) => {
-                return res.status(400).send(err.message);
-            });
+                return res.status(400).send(err.message)
+            })
     }
     async patchCategoryByID(req, res) {
         console.log('Category patch')
@@ -65,9 +65,9 @@ class CategoryController {
                 if (result === 0) {
                     return res
                         .status(400)
-                        .send("Category with id " + req.params.category_id + " not found.");
+                        .send("Category with id " + req.params.category_id + " not found.")
                 } else {
-                    const { user_id, parent_category, name, image_link, color } = req.body;
+                    const { user_id, parent_category, name, image_link, color } = req.body
                     Category.update(
                         {
                             user_id: user_id ?? db.sequelize.literal("user_id"),
@@ -82,12 +82,12 @@ class CategoryController {
                             },
                         }
                     )
-                    return res.status(200).send("Category with ID: " + req.params.category_id + " was changed successful");
+                    return res.status(200).send("Category with ID: " + req.params.category_id + " was changed successful")
                 }
             })
             .catch((err) => {
-                return res.status(400).send(err.message);
-            });
+                return res.status(400).send(err.message)
+            })
     }
     async getCategoryByUserID(req, res) {
         await Category.findAll({
@@ -97,19 +97,19 @@ class CategoryController {
         })
             .then((result) => {
                 if (result.length > 0) {
-                    return res.status(200).send(result);
+                    return res.status(200).send(result)
                 } else {
                     return res
                         .status(400)
-                        .send("User with id: " + user_id + " haven't any Category");
+                        .send("User with id: " + user_id + " haven't any Category")
                 }
             })
             .catch((err) => {
-                return res.status(400).send(err);
-            });
+                return res.status(400).send(err.message)
+            })
     }
     async GetParentCategories(req, res) {
-        const category_id = req.params.category_id;
+        const category_id = req.params.category_id
         await Category.findAll({
             where: {
                 parent_category: category_id
@@ -117,17 +117,17 @@ class CategoryController {
         })
             .then((result) => {
                 if (result.length > 0) {
-                    return res.status(200).send(result);
+                    return res.status(200).send(result)
                 } else {
                     return res
                         .status(400)
-                        .send("Category with id: " + category_id + " haven't any ParentCategory");
+                        .send("Category with id: " + category_id + " haven't any ParentCategory")
                 }
             })
             .catch((err) => {
-                return res.status(400).send(err);
-            });
+                return res.status(400).send(err.message)
+            })
     }
 }
 
-module.exports = new CategoryController();
+module.exports = new CategoryController()

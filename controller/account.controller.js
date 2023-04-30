@@ -1,15 +1,15 @@
-const { Account } = require("../db/index");
-const db = require("../db");
+const { Account } = require("../db/index")
+const db = require("../db")
 
 class AccountController {
     async getAccounts(req, res) {
         await Account.findAll()
             .then((result) => {
-                return res.status(200).send(result);
+                return res.status(200).send(result)
             })
             .catch((err) => {
-                return res.status(400).send(err);
-            });
+                return res.status(400).send(err.message)
+            })
     }
     async getAccountByID(req, res) {
         await Account.findAll({
@@ -18,25 +18,25 @@ class AccountController {
               },
         })
             .then((result) => {
-                return res.status(200).send(result);
+                return res.status(200).send(result)
             })
             .catch((err) => {
-                return res.status(400).send(err);
-            });
+                return res.status(400).send(err.message)
+            })
     }
     async addAccounts(req, res) {
-        console.log(req.body);
-        const { user_id, name, cash, color } = req.body;
+        console.log(req.body)
+        const { user_id, name, cash, color } = req.body
         try {
             const result = await Account.create({
                 user_id: user_id,
                 name: name,
                 cash: cash,
                 color: color,
-            });
-            return res.status(200).send(result);
+            })
+            return res.status(200).send(result)
         } catch (err) {
-            return res.status(400).send(err);
+            return res.status(400).send(err.message)
         }
     }
 
@@ -50,7 +50,7 @@ class AccountController {
                 if (result === 0) {
                     return res
                         .status(400)
-                        .send("Account with id " + req.params.account_id + " not found.");
+                        .send("Account with id " + req.params.account_id + " not found.")
                 }
                 return res
                     .status(200)
@@ -58,11 +58,11 @@ class AccountController {
                         "Account with id " +
                         req.params.account_id +
                         " was deleted successfully."
-                    );
+                    )
             })
             .catch((err) => {
-                return res.status(400).send(err.message);
-            });
+                return res.status(400).send(err.message)
+            })
     }
     async patchAccountByID(req, res) {
         await Account.findOne({
@@ -74,10 +74,10 @@ class AccountController {
                 if (result === 0) {
                     return res
                         .status(400)
-                        .send("Account with id " + req.params.account_id + " not found.");
+                        .send("Account with id " + req.params.account_id + " not found.")
                 } else {
                     const { user_id, name, cash, color } =
-                        req.body;
+                        req.body
                     Account.update(
                         {
                             user_id: user_id ?? db.sequelize.literal("user_id"),
@@ -91,13 +91,13 @@ class AccountController {
                             },
                         }
                     )
-                    return res.status(200).send("Account with ID: " + req.params.account_id + " was changed successful");
+                    return res.status(200).send("Account with ID: " + req.params.account_id + " was changed successful")
                 }
             })
             .catch((err) => {
-                return res.status(400).send(err.message);
-            });
+                return res.status(400).send(err.message)
+            })
     }
 }
 
-module.exports = new AccountController();
+module.exports = new AccountController()

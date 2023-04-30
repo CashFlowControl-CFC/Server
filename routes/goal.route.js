@@ -1,5 +1,5 @@
 const express = require('express')
-const router = express.Router();
+const router = express.Router()
 const goalController = require('../controller/goal.controller')
 
 router.get("/",goalController.getGoal)

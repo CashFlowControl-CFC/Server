@@ -1,18 +1,18 @@
 const {Remainder} = require('../db/index')
-const db = require("../db");
+const db = require("../db")
 
 class RemainderController {
     async getRemainders(req, res) {
         await Remainder.findAll()
             .then((result) => {
-                return res.status(200).send(result);
+                return res.status(200).send(result)
             })
             .catch((err) => {
-                return res.status(400).send(err.message);
-            });
+                return res.status(400).send(err.message)
+            })
     }
     async addRemainder(req, res) {
-        const { user_id, category_id, name, cash, dateRemainde } = req.body;
+        const { user_id, category_id, name, cash, dateRemainde } = req.body
         try {
             console.log(user_id, category_id, name, cash, dateRemainde)
             const result = await Remainder.create({
@@ -21,10 +21,10 @@ class RemainderController {
                 name: name,
                 cash:cash,
                 dateRemainde:dateRemainde,
-            });
-            return res.status(200).send(result);
+            })
+            return res.status(200).send(result)
         } catch (err) {
-            return res.status(400).send(err.message);
+            return res.status(400).send(err.message)
         }
     }
     async deleteRemainderByID(req, res) {
@@ -37,7 +37,7 @@ class RemainderController {
                 if (result === 0) {
                     return res
                         .status(400)
-                        .send("Remainder with id " + req.params.remainder_id + " not found.");
+                        .send("Remainder with id " + req.params.remainder_id + " not found.")
                 }
                 return res
                     .status(200)
@@ -45,11 +45,11 @@ class RemainderController {
                         "Remainder with id " +
                         req.params.remainder_id +
                         " was deleted successfully."
-                    );
+                    )
             })
             .catch((err) => {
-                return res.status(400).send(err.message);
-            });
+                return res.status(400).send(err.message)
+            })
     }
     async patchRemainderByID(req, res) {
         await Remainder.findOne({
@@ -61,9 +61,9 @@ class RemainderController {
                 if (result === 0) {
                     return res
                         .status(400)
-                        .send("Remainder with id " + req.params.remainder_id + " not found.");
+                        .send("Remainder with id " + req.params.remainder_id + " not found.")
                 } else {
-                    const { user_id, category_id, name, cash, dateRemainde } = req.body;
+                    const { user_id, category_id, name, cash, dateRemainde } = req.body
                     Remainder.update(
                         {
                             user_id: user_id ?? db.sequelize.literal("user_id"),
@@ -78,12 +78,12 @@ class RemainderController {
                             },
                         }
                     )
-                    return res.status(200).send("Remainder with ID: " + req.params.remainder_id + " was changed successful");
+                    return res.status(200).send("Remainder with ID: " + req.params.remainder_id + " was changed successful")
                 }
             })
             .catch((err) => {
-                return res.status(400).send(err.message);
-            });
+                return res.status(400).send(err.message)
+            })
     }
     async getRemainderByUserID(req, res) {
         await Remainder.findAll({
@@ -93,18 +93,18 @@ class RemainderController {
         })
             .then((result) => {
                 if (result.length > 0) {
-                    return res.status(200).send(result);
+                    return res.status(200).send(result)
                 } else {
                     return res
                         .status(400)
-                        .send("User with " + req.params.user_id + " haven't remainders");
+                        .send("User with " + req.params.user_id + " haven't remainders")
                 }
             })
             .catch((err) => {
-                return res.status(400).send(err.message);
-            });
+                return res.status(400).send(err.message)
+            })
     }
 }
 
 
-module.exports = new RemainderController();
+module.exports = new RemainderController()

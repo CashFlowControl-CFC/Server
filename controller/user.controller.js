@@ -1,27 +1,27 @@
-const { User } = require("../db/index");
-const db = require("../db");
+const { User } = require("../db/index")
+const db = require("../db")
 
 class UserController {
     async getUsers(req, res) {
         await User.findAll()
             .then((result) => {
-                return res.status(200).send(result);
+                return res.status(200).send(result)
             })
             .catch((err) => {
-                return res.status(400).send(err);
-            });
+                return res.status(400).send(err.message)
+            })
     }
     async addUser(req, res) {
-        const { email, hashPass, isConfirmed } = req.body;
+        const { email, hashPass, isConfirmed } = req.body
         try {
             const result = await User.create({
                 email: email,
                 hashPass: hashPass,
                 isConfirmed: isConfirmed,
-            });
-            return res.status(200).send(result);
+            })
+            return res.status(200).send(result)
         } catch (err) {
-            return res.status(400).send(err);
+            return res.status(400).send(err.message)
         }
     }
     async deleteUserByID(req, res) {
@@ -34,7 +34,7 @@ class UserController {
                 if (result === 0) {
                     return res
                         .status(400)
-                        .send("User with id " + req.params.user_id + " not found.");
+                        .send("User with id " + req.params.user_id + " not found.")
                 }
                 return res
                     .status(200)
@@ -42,11 +42,11 @@ class UserController {
                         "User with id " +
                         req.params.user_id +
                         " was deleted successfully."
-                    );
+                    )
             })
             .catch((err) => {
-                return res.status(400).send(err.message);
-            });
+                return res.status(400).send(err.message)
+            })
     }
     async patchUserByID(req, res) {
         await User.findOne({
@@ -58,9 +58,9 @@ class UserController {
                 if (result === 0) {
                     return res
                         .status(400)
-                        .send("User with id " + req.params.user_id + " not found.");
+                        .send("User with id " + req.params.user_id + " not found.")
                 } else {
-                    const { email, hashPass, isConfirmed } = req.body;
+                    const { email, hashPass, isConfirmed } = req.body
                     User.update(
                         {
                             email: email ?? db.sequelize.literal("email"),
@@ -73,12 +73,12 @@ class UserController {
                             },
                         }
                     )
-                    return res.status(200).send("User with ID: " + req.params.user_id + " was changed successful");
+                    return res.status(200).send("User with ID: " + req.params.user_id + " was changed successful")
                 }
             })
             .catch((err) => {
-                return res.status(400).send(err.message);
-            });
+                return res.status(400).send(err.message)
+            })
     }
     async getUserByUserID(req, res) {
         await User.findAll({
@@ -88,17 +88,17 @@ class UserController {
         })
             .then((result) => {
                 if (result.length > 0) {
-                    return res.status(200).send(result);
+                    return res.status(200).send(result)
                 } else {
                     return res
                         .status(400)
-                        .send("User with id: " + req.params.user_id + " not found");
+                        .send("User with id: " + req.params.user_id + " not found")
                 }
             })
             .catch((err) => {
-                return res.status(400).send(err.message);
-            });
+                return res.status(400).send(err.message)
+            })
     }
 }
 
-module.exports = new UserController();
+module.exports = new UserController()

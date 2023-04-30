@@ -5,14 +5,14 @@ class GoalController {
     async getGoal(req, res) {
         await Goal.findAll()
             .then((result) => {
-                return res.status(200).send(result);
+                return res.status(200).send(result)
             })
             .catch((err) => {
-                return res.status(400).send(err.message);
-            });
+                return res.status(400).send(err.message)
+            })
     }
     async addGoal(req, res) {
-        const { user_id, name, cash, deadline, color } = req.body;
+        const { user_id, name, cash, deadline, color } = req.body
         try {
             const result = await Goal.create({
                 user_id: user_id,
@@ -20,10 +20,10 @@ class GoalController {
                 cash:cash,
                 deadline:deadline,
                 color:color,
-            });
-            return res.status(200).send(result);
+            })
+            return res.status(200).send(result)
         } catch (err) {
-            return res.status(400).send(err.message);
+            return res.status(400).send(err.message)
         }
     }
     async deleteGoalByID(req, res) {
@@ -36,7 +36,7 @@ class GoalController {
                 if (result === 0) {
                     return res
                         .status(400)
-                        .send("Goal with id " + req.params.goal_id + " not found.");
+                        .send("Goal with id " + req.params.goal_id + " not found.")
                 }
                 return res
                     .status(200)
@@ -44,11 +44,11 @@ class GoalController {
                         "Goal with id " +
                         req.params.goal_id +
                         " was deleted successfully."
-                    );
+                    )
             })
             .catch((err) => {
-                return res.status(400).send(err.message);
-            });
+                return res.status(400).send(err.message)
+            })
     }
     async patchGoalByID(req, res) {
         await Goal.findOne({
@@ -60,9 +60,9 @@ class GoalController {
                 if (result === 0) {
                     return res
                         .status(400)
-                        .send("Goal with id " + req.params.goal_id + " not found.");
+                        .send("Goal with id " + req.params.goal_id + " not found.")
                 } else {
-                    const { user_id, name, cash, deadline, color } = req.body;
+                    const { user_id, name, cash, deadline, color } = req.body
                     Goal.update(
                         {
                             user_id: user_id ?? db.sequelize.literal("user_id"),
@@ -77,12 +77,12 @@ class GoalController {
                             },
                         }
                     )
-                    return res.status(200).send("Goal with ID: " + req.params.goal_id + " was changed successful");
+                    return res.status(200).send("Goal with ID: " + req.params.goal_id + " was changed successful")
                 }
             })
             .catch((err) => {
-                return res.status(400).send(err.message);
-            });
+                return res.status(400).send(err.message)
+            })
     }
     async getGoalByUserID(req, res) {
         await Goal.findAll({
@@ -92,16 +92,16 @@ class GoalController {
         })
             .then((result) => {
                 if (result.length > 0) {
-                    return res.status(200).send(result);
+                    return res.status(200).send(result)
                 } else {
                     return res
                         .status(400)
-                        .send("User with " + req.params.user_id + " haven't Goals");
+                        .send("User with " + req.params.user_id + " haven't Goals")
                 }
             })
             .catch((err) => {
-                return res.status(400).send(err.message);
-            });
+                return res.status(400).send(err.message)
+            })
     }
 }
 
