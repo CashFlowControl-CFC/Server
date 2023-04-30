@@ -24,6 +24,19 @@ class AccountController {
                 return res.status(400).send(err.message)
             })
     }
+    async getAccountsByUserID(req, res) {
+        await Account.findAll({
+            where: {
+                user_id: req.params.user_id,
+              },
+        })
+            .then((result) => {
+                return res.status(200).send(result)
+            })
+            .catch((err) => {
+                return res.status(400).send(err.message)
+            })
+    }
     async addAccounts(req, res) {
         console.log(req.body)
         const { user_id, name, cash, color } = req.body

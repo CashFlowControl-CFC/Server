@@ -101,7 +101,26 @@ class CategoryController {
                 } else {
                     return res
                         .status(400)
-                        .send("User with id: " + user_id + " haven't any Category")
+                        .send("User with id: " + req.params.user_id + " haven't any Category")
+                }
+            })
+            .catch((err) => {
+                return res.status(400).send(err.message)
+            })
+    }
+    async getCategoryByID(req, res) {
+        await Category.findAll({
+            where: {
+                id: req.params.category_id,
+            },
+        })
+            .then((result) => {
+                if (result.length > 0) {
+                    return res.status(200).send(result)
+                } else {
+                    return res
+                        .status(400)
+                        .send("Category with id: " + req.params.category_id + " not found")
                 }
             })
             .catch((err) => {

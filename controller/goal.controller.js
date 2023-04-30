@@ -103,6 +103,25 @@ class GoalController {
                 return res.status(400).send(err.message)
             })
     }
+    async getGoalByID(req, res) {
+        await Goal.findAll({
+            where: {
+                id: req.params.goal_id,
+            },
+        })
+            .then((result) => {
+                if (result.length > 0) {
+                    return res.status(200).send(result)
+                } else {
+                    return res
+                        .status(400)
+                        .send("Goal with " + req.params.goal_id + " id not found")
+                }
+            })
+            .catch((err) => {
+                return res.status(400).send(err.message)
+            })
+    }
 }
 
 

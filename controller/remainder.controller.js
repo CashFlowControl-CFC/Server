@@ -104,6 +104,25 @@ class RemainderController {
                 return res.status(400).send(err.message)
             })
     }
+    async getRemainderByID(req, res) {
+        await Remainder.findAll({
+            where: {
+                id: req.params.remainder_id,
+            },
+        })
+            .then((result) => {
+                if (result.length > 0) {
+                    return res.status(200).send(result)
+                } else {
+                    return res
+                        .status(400)
+                        .send("Remainder with "+ req.params.remainder_id + " id not found")
+                }
+            })
+            .catch((err) => {
+                return res.status(400).send(err.message)
+            })
+    }
 }
 
 

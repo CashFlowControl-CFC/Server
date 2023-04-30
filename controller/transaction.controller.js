@@ -106,5 +106,24 @@ class TransactionController {
         return res.status(400).send(err.message)
       })
   }
+  async getTransactionByID(req, res) {
+    await Transaction.findAll({
+      where: {
+        id: req.params.transaction_id,
+      },
+    })
+      .then((result) => {
+        if (result.length > 0) {
+          return res.status(200).send(result)
+        } else {
+          return res
+            .status(400)
+            .send("Transaction with " + req.params.transaction_id + " id not found")
+        }
+      })
+      .catch((err) => {
+        return res.status(400).send(err.message)
+      })
+  }
 }
 module.exports = new TransactionController()
