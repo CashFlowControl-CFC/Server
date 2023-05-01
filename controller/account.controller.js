@@ -1,6 +1,6 @@
 const { Account } = require("../db/index")
 const db = require("../db")
-
+const { Op } = require('sequelize');
 class AccountController {
     async getAccounts(req, res) {
         await Account.findAll()
@@ -57,13 +57,16 @@ class AccountController {
         await Account.destroy({
             where: {
                 id: req.params.account_id,
+                name:{
+                    [Op.not]:"Total"
+                }
             },
         })
             .then((result) => {
                 if (result === 0) {
                     return res
                         .status(400)
-                        .send("Account with id " + req.params.account_id + " not found.")
+                        .send("Account with id " + req.params.account_id + " not found.Or it has name 'Total'")
                 }
                 return res
                     .status(200)
