@@ -4,10 +4,10 @@ const { Op } = require('sequelize');
 class CategoryController {
     async getCategories(req, res) {
         await Category.findAll({
-            where:{
+            where: {
                 image_link: {
                     [Op.not]: "tmp"
-                  }
+                }
             }
         })
             .then((result) => {
@@ -19,14 +19,13 @@ class CategoryController {
     }
     async addCategory(req, res) {
         console.log(req.body)
-        const { user_id, parent_category, name, image_link, image_color, color } = req.body
+        const { user_id, name, image_link, image_color, color } = req.body
         try {
             const result = await Category.create({
                 user_id: user_id,
-                parent_category: parent_category ?? null,
                 name: name,
                 image_link: image_link,
-                image_color:image_color,
+                image_color: image_color,
                 color: color,
             })
             return res.status(200).send(result)
