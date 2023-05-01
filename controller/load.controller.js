@@ -12,13 +12,13 @@ class LoadController {
                 throw new Error('User ID is missing')
             }
 
-            const transactions = await TransactionController.getTransactionByUserID(req,res,true)
+            const transactions = await TransactionController.getTransactionByUserID(req, res, true)
 
             if (!transactions) {
                 throw new Error('Transactions not found')
             }
 
-            const categories = await CategoryController.getCategories(req,res,true)
+            const categories = await CategoryController.getCategories(req, res, true)
             console.log(categories);
             if (!categories) {
                 throw new Error('Categories not found')
@@ -35,11 +35,12 @@ class LoadController {
                             'y': transaction.cash,
                             'fill': category.color,
                             'id': transaction.id,
-                            'comment':transaction.comment,
-                            'image': category.image_link,
+                            'comment': transaction.comment,
+                            'image_link': category.image_link,
+                            'image_color': category.image_color,
                             'isIncome': transaction.isIncome,
                             'date': formattedDate,
-                            'category_id':category.id
+                            'category_id': category.id
                         })
                     }
                 }
@@ -51,7 +52,7 @@ class LoadController {
         }
     }
 
-    
+
 
 }
 

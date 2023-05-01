@@ -17,14 +17,15 @@ class TransactionController {
             const formattedDate = FormattedDate.formatDate(transaction.date)
             combinedTransactions.push({
               'x': category.name,
-              'y': transaction.cash,
-              'fill': category.color,
-              'id': transaction.id,
-              'comment': transaction.comment,
-              'image': category.image_link,
-              'isIncome': transaction.isIncome,
-              'date': formattedDate,
-              'category_id': category.id
+            'y': transaction.cash,
+            'fill': category.color,
+            'id': transaction.id,
+            'comment': transaction.comment,
+            'image_link': category.image_link,
+            'image_color': category.image_color,
+            'isIncome': transaction.isIncome,
+            'date': formattedDate,
+            'category_id': category.id
             })
           }
         }
@@ -61,7 +62,8 @@ class TransactionController {
             'fill': category.color,
             'id': result.id,
             'comment': result.comment,
-            'image': category.image_link,
+            'image_link': category.image_link,
+            'image_color': category.image_color,
             'isIncome': result.isIncome,
             'date': formattedDate,
             'category_id': category.id
