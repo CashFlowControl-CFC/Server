@@ -17,15 +17,15 @@ class TransactionController {
             const formattedDate = FormattedDate.formatDate(transaction.date)
             combinedTransactions.push({
               'x': category.name,
-            'y': transaction.cash,
-            'fill': category.color,
-            'id': transaction.id,
-            'comment': transaction.comment,
-            'image_link': category.image_link,
-            'image_color': category.image_color,
-            'isIncome': transaction.isIncome,
-            'date': formattedDate,
-            'category_id': category.id
+              'y': transaction.cash,
+              'fill': category.color,
+              'id': transaction.id,
+              'comment': transaction.comment,
+              'image_link': category.image_link,
+              'image_color': category.image_color,
+              'isIncome': transaction.isIncome,
+              'date': formattedDate,
+              'category_id': category.id
             })
           }
         }
@@ -38,7 +38,7 @@ class TransactionController {
 
   }
   async addTransaction(req, res) {
-    const combinedTransaction = []
+    var combinedTransaction = {};
     const { category_id, user_id, date, comment, cash, isIncome } = req.body
     try {
       const result = await Transaction.create({
@@ -56,7 +56,7 @@ class TransactionController {
       for (const category of categories) {
         if (result.category_id === category.id) {
           const formattedDate = FormattedDate.formatDate(result.date)
-          combinedTransaction.push({
+          combinedTransaction = ({
             'x': category.name,
             'y': result.cash,
             'fill': category.color,
