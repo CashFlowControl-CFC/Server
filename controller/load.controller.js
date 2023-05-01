@@ -1,42 +1,9 @@
 const { Transaction } = require("../db/index")
 const { Category } = require("../db/index")
 const db = require("../db")
+const CategoryController = require('./category.controller')
+const TransactionController = require('./transaction.controller')
 class LoadController {
-    async getCategories(req, res) {
-        const result = await Category.findAll()
-        if (result.length > 0) {
-            return result
-        } else {
-            return ("Haven't categories")
-        }
-    }
-    async getCategoryByID(category_id) {
-        const result = await Category.findAll({
-            where: {
-                id: category_id,
-            },
-        })
-
-        if (result.length > 0) {
-            return result
-        } else {
-            return ("Haven't category with ID " + category_id)
-        }
-    }
-
-    async TransactionByUserID(user_id) {
-        const result = await Transaction.findAll({
-            where: {
-                user_id: user_id,
-            },
-        })
-
-        if (result.length > 0) {
-            return result
-        } else {
-            return ("User with id: " + user_id + " haven't any transaction")
-        }
-    }
 
     async combineTransactions(req, res) {
         try {
@@ -46,14 +13,14 @@ class LoadController {
                 throw new Error('User ID is missing')
             }
 
-            const transactions = await this.TransactionByUserID(user_id)
+            const transactions = await TransactionController.getTransactionByUserID(req,res,true)
 
             if (!transactions) {
                 throw new Error('Transactions not found')
             }
 
-            const categories = await this.getCategories(req, res)
-
+            const categories = await CategoryController.getCategories(req,res,true)
+            console.log(categories);
             if (!categories) {
                 throw new Error('Categories not found')
             }
@@ -69,6 +36,7 @@ class LoadController {
                             'y': transaction.cash,
                             'fill': category.color,
                             'id': transaction.id,
+                            'comment':transaction.comment,
                             'image': category.image_link,
                             'isIncome': transaction.isIncome,
                             'date': formattedDate,

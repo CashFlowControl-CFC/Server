@@ -2,12 +2,24 @@ const express = require('express')
 const router = express.Router()
 const RemainderController = require('../controller/remainder.controller')
 
-router.get("/",RemainderController.getRemainders)
-router.get("/user/:user_id",RemainderController.getRemainderByUserID)
-router.get("/:remainder_id",RemainderController.getRemainderByID)
-router.post("/",RemainderController.addRemainder)
-router.delete("/:remainder_id",RemainderController.deleteRemainderByID)
-router.patch("/:remainder_id",RemainderController.patchRemainderByID)
+router.get("/",async(req,res)=>{
+    await RemainderController.getRemainders(req,res)
+})
+router.get("/user/:user_id",async(req,res)=>{
+    await RemainderController.getRemainderByUserID(req,res)
+})
+router.get("/:remainder_id",async(req,res)=>{
+    await RemainderController.getRemainderByID(req,res)
+})
+router.post("/",async(req,res)=>{
+    await RemainderController.addRemainder(req,res)
+})
+router.delete("/:remainder_id",async(req,res)=>{
+    await RemainderController.deleteRemainderByID(req,res)
+})
+router.patch("/:remainder_id",async(req,res)=>{
+    await RemainderController.patchRemainderByID(req,res)
+})
 
 
 

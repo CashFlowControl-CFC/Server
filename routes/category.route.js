@@ -3,12 +3,24 @@ const router = express.Router()
 const categoryController = require('../controller/category.controller')
 
 
-router.get('/', categoryController.getCategories)
-router.get('/user/:user_id', categoryController.getCategoryByUserID)
-router.get('/:category_id',categoryController.getCategoryByID)
-router.post('/', categoryController.addCategory)
-router.delete('/:category_id', categoryController.deleteCategoryByID)
-router.patch('/:category_id' , categoryController.patchCategoryByID)
+router.get('/', async(req,res)=>{
+    await categoryController.getCategories(req,res)
+})
+router.get('/user/:user_id', async(req,res)=>{
+    await categoryController.getCategoryByUserID(req,res)
+})
+router.get('/:category_id',async(req,res)=>{
+    await categoryController.getCategoryByID(req,res)
+})
+router.post('/', async(req,res)=>{
+    await categoryController.addCategory(req,res)
+})
+router.delete('/:category_id', async(req,res)=>{
+    await categoryController.deleteCategoryByID(req,res)
+})
+router.patch('/:category_id' , async(req,res)=>{
+    await categoryController.patchCategoryByID(req,res)
+})
 
 
 

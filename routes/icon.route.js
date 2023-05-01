@@ -1,11 +1,23 @@
 const express = require('express');
 const route = express.Router();
 const IconController = require('../controller/icon.controller')
-route.get('/',IconController.getIcons)
-route.get('/:icon_id',IconController.getIconByID)
-route.get('/category/:category_id',IconController.getIconByCategoryID)
-route.post('/',IconController.addIcon)
-route.patch('/:icon_id',IconController.patchIconByID)
-route.delete('/:icon_id',IconController.deleteIconByID)
+route.get('/',async(req,res)=>{
+    await IconController.getIcons(req,res)
+})
+route.get('/:icon_id',async(req,res)=>{
+    await IconController.getIconByID(req,res)
+})
+route.get('/category/:category_id',async(req,res)=>{
+    await IconController.getIconByCategoryID(req,res)
+})
+route.post('/',async(req,res)=>{
+    await IconController.addIcon(req,res)
+})
+route.patch('/:icon_id',async(req,res)=>{
+    await IconController.patchIconByID(req,res)
+})
+route.delete('/:icon_id',async(req,res)=>{
+    await IconController.deleteIconByID(req,res)
+})
 
 module.exports = route;

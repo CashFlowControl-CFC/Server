@@ -2,10 +2,20 @@ const express = require('express')
 const router = express.Router()
 const userController = require('../controller/user.controller')
 
-router.get("/",userController.getUsers)
-router.get("/:user_id",userController.getUserByUserID)
-router.post("/",userController.addUser)
-router.delete("/:user_id",userController.deleteUserByID)
-router.patch("/:user_id",userController.patchUserByID)
+router.get("/",async(req,res)=>{
+    await userController.getUsers(req,res)
+})
+router.get("/:user_id",async(req,res)=>{
+    await userController.getUserByUserID(req,res)
+})
+router.post("/",async(req,res)=>{
+    await userController.addUser(req,res)
+})
+router.delete("/:user_id",async(req,res)=>{
+    await userController.deleteUserByID(req,res)
+})
+router.patch("/:user_id",async(req,res)=>{
+    await userController.patchUserByID(req,res)
+})
 
 module.exports = router

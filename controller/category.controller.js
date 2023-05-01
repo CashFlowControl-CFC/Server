@@ -2,21 +2,24 @@ const { Category } = require("../db/index")
 const db = require("../db")
 const { Op } = require('sequelize');
 class CategoryController {
-    async getCategories(req, res) {
-        await Category.findAll({
+    async getCategories(req, res, local) {
+        try {
+          const result = await Category.findAll({
             where: {
-                image_link: {
-                    [Op.not]: "tmp"
-                }
+              image_link: {
+                [Op.not]: "tmp"
+              }
             }
-        })
-            .then((result) => {
-                return res.status(200).send(result)
-            })
-            .catch((err) => {
-                return res.status(400).send(err.message)
-            })
-    }
+          });
+          if (local) {
+            return result;
+          } else {
+            return res.status(200).send(result);
+          }
+        } catch (err) {
+          return res.status(400).send(err.message);
+        }
+      }
     async addCategory(req, res) {
         console.log(req.body)
         const { user_id, name, image_link, image_color, color, isIncome } = req.body

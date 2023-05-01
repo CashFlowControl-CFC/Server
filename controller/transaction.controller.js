@@ -1,16 +1,43 @@
 const { Transaction } = require("../db/index")
 const db = require("../db")
+const CategoryController = require('./category.controller')
+const LoadController = require('./load.controller')
 class TransactionController {
   async getTransactions(req, res) {
-    await Transaction.findAll()
-      .then((result) => {
-        return res.status(200).send(result)
-      })
-      .catch((err) => {
-        return res.status(400).send(err.message)
-      })
+    const combinedTransactions = []
+    try {
+      const result = await Transaction.findAll()
+      const categories = await CategoryController.getCategories(req, res, true)
+      if (!categories) {
+        throw new Error('Categories not found')
+      }
+      for (const transaction of result) {
+        for (const category of categories) {
+          if (transaction.category_id === category.id) {
+            const formattedDate = LoadController.formatDate(transaction.date)
+            combinedTransactions.push({
+              'x': category.name,
+              'y': transaction.cash,
+              'fill': category.color,
+              'id': transaction.id,
+              'comment': transaction.comment,
+              'image': category.image_link,
+              'isIncome': transaction.isIncome,
+              'date': formattedDate,
+              'category_id': category.id
+            })
+          }
+        }
+      }
+      console.log(combinedTransactions)
+      return res.status(200).send(combinedTransactions)
+    } catch (err) {
+      return res.status(400).send(err.message)
+    }
+
   }
   async addTransaction(req, res) {
+    const combinedTransaction = []
     const { category_id, user_id, date, comment, cash, isIncome } = req.body
     try {
       const result = await Transaction.create({
@@ -21,7 +48,27 @@ class TransactionController {
         cash: cash,
         isIncome: isIncome,
       })
-      return res.status(200).send(result)
+      const categories = await CategoryController.getCategories(req, res, true)
+      if (!categories) {
+        throw new Error('Categories not found')
+      }
+      for (const category of categories) {
+        if (result.category_id === category.id) {
+          const formattedDate = LoadController.formatDate(result.date)
+          combinedTransaction.push({
+            'x': category.name,
+            'y': result.cash,
+            'fill': category.color,
+            'id': result.id,
+            'comment': result.comment,
+            'image': category.image_link,
+            'isIncome': result.isIncome,
+            'date': formattedDate,
+            'category_id': category.id
+          })
+        }
+      }
+      return res.status(200).send(combinedTransaction)
     } catch (err) {
       return res.status(400).send(err.message)
     }
@@ -43,7 +90,7 @@ class TransactionController {
           .send(
             "Transaction with id " +
             req.params.transaction_id +
-              " was deleted successfully."
+            " was deleted successfully."
           )
       })
       .catch((err) => {
@@ -80,31 +127,31 @@ class TransactionController {
               },
             }
           )
-          return res.status(200).send("Transaction with ID: "+req.params.transaction_id+" was changed successful")
+          return res.status(200).send("Transaction with ID: " + req.params.transaction_id + " was changed successful")
         }
       })
       .catch((err) => {
         return res.status(400).send(err.message)
       })
   }
-  async getTransactionByUserID(req, res) {
-    await Transaction.findAll({
+  async getTransactionByUserID(req, res, isLocal) {
+    console.log(req.body)
+    const result = await Transaction.findAll({
       where: {
-        user_id: req.params.user_id,
+        user_id: req.body == null ? req.body.user_id : req.params.user_id,
       },
     })
-      .then((result) => {
-        if (result.length > 0) {
-          return res.status(200).send(result)
-        } else {
-          return res
-            .status(400)
-            .send("User with id: " + req.params.user_id + " haven't any transaction")
-        }
-      })
-      .catch((err) => {
-        return res.status(400).send(err.message)
-      })
+
+    if (result.length > 0) {
+      if (isLocal) {
+        return result
+      }
+      return res.status(200).send(result)
+    } else {
+      return res
+        .status(400)
+        .send("User with id: " + req.params.user_id + " haven't any transaction")
+    }
   }
   async getTransactionByID(req, res) {
     await Transaction.findAll({

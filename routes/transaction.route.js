@@ -3,12 +3,24 @@ const router = express.Router()
 const transactionController = require('../controller/transaction.controller')
 
 
-router.get('/',transactionController.getTransactions)
-router.get('/user/:user_id', transactionController.getTransactionByUserID)
-router.get("/:transaction_id",transactionController.getTransactionByID)
-router.post('/', transactionController.addTransaction)
-router.delete('/:transaction_id',transactionController.deleteTransactionByID)
-router.patch('/:transaction_id',transactionController.patchTransactionByID)
+router.get('/',async(req,res)=>{
+    await transactionController.getTransactions(req,res)
+})
+router.get('/user/:user_id', async(req,res)=>{
+    await transactionController.getTransactionByUserID(req,res);
+})
+router.get("/:transaction_id",async(req,res)=>{
+    await transactionController.getTransactionByID(req,res)
+})
+router.post('/', async(req,res)=>{
+    await transactionController.addTransaction(req,res)
+})
+router.delete('/:transaction_id',async(req,res)=>{
+    await transactionController.deleteTransactionByID(req,res)
+})
+router.patch('/:transaction_id',async(req,res)=>{
+    await transactionController.patchTransactionByID(req,res)
+})
 
 
 module.exports = router
