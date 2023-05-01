@@ -1,7 +1,7 @@
 const { Transaction } = require("../db/index")
 const db = require("../db")
 const CategoryController = require('./category.controller')
-const LoadController = require('./load.controller')
+const FormattedDate = require('../module/FormattedDate')
 class TransactionController {
   async getTransactions(req, res) {
     const combinedTransactions = []
@@ -14,7 +14,7 @@ class TransactionController {
       for (const transaction of result) {
         for (const category of categories) {
           if (transaction.category_id === category.id) {
-            const formattedDate = LoadController.formatDate(transaction.date)
+            const formattedDate = FormattedDate.formatDate(transaction.date)
             combinedTransactions.push({
               'x': category.name,
               'y': transaction.cash,
@@ -141,7 +141,6 @@ class TransactionController {
         user_id: req.body == null ? req.body.user_id : req.params.user_id,
       },
     })
-
     if (result.length > 0) {
       if (isLocal) {
         return result
