@@ -11,6 +11,8 @@ const AccountRoute = require('./routes/account.route')
 const UserRoute = require('./routes/user.route')
 const RemainderRoute = require('./routes/remainder.route')
 const GoalRoute = require('./routes/goal.route')
+const DefaultCategoryRoute = require('./routes/defaultCategory.route')
+const IconRoute = require('./routes/icon.route')
 app.use(bodyParser.json())
 app.use(cors())
 
@@ -21,6 +23,8 @@ app.use('/account',AccountRoute)
 app.use('/user',UserRoute)
 app.use('/remainder',RemainderRoute)
 app.use('/goal',GoalRoute)
+app.use('/defaultcategory',DefaultCategoryRoute);
+app.use('/icon',IconRoute)
 
 app.listen(PORT,()=>{
     db.sequelize

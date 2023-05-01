@@ -11,6 +11,9 @@ const Goal = require('./models/Goal')(sequelize)
 const Remainder = require('./models/Remainder')(sequelize)
 const Transaction = require('./models/Transaction')(sequelize)
 const User = require('./models/User')(sequelize)
+const DefaultCategory = require('./models/DefaultCategory')(sequelize)
+const Icon = require('./models/Icon')(sequelize)
+
 Object.freeze(sequelize)
 module.exports = {
     sequelize: sequelize,
@@ -20,4 +23,6 @@ module.exports = {
     Remainder : Remainder,
     Transaction : Transaction,
     User : User,
+    DefaultCategory:DefaultCategory,
+    Icon:Icon
 }

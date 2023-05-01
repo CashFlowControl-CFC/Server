@@ -28,6 +28,6 @@ module.exports = function(sequelize){
         }
       },{
         timestamps:false,
-        tableName:'Goal'
+        tableName:'goal'
       })
 }

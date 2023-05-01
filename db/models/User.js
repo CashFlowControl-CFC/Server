@@ -20,11 +20,8 @@ module.exports = function(sequelize){
             type: Sequelize.BOOLEAN,
             allowNull: false
           }
-      }, {
-        tableName: 'User',
-        timestamps: false
       },{
         timestamps:false,
-        tableName:'User'
+        tableName:'user'
       })
 }

@@ -34,6 +34,6 @@ module.exports = function(sequelize){
       }
     },{
       timestamps:false,
-      tableName:'Transaction'
+      tableName:'transaction'
     })
 }
