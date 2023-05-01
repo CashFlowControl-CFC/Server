@@ -13,11 +13,11 @@ route.get('/category/:category_id',async(req,res)=>{
 route.post('/',async(req,res)=>{
     await IconController.addIcon(req,res)
 })
-route.patch('/:icon_id',async(req,res)=>{
-    await IconController.patchIconByID(req,res)
-})
 route.delete('/:icon_id',async(req,res)=>{
     await IconController.deleteIconByID(req,res)
+})
+route.patch('/:icon_id',async(req,res)=>{
+    await IconController.patchIconByID(req,res)
 })
 
 module.exports = route;
