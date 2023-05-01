@@ -19,7 +19,7 @@ class CategoryController {
     }
     async addCategory(req, res) {
         console.log(req.body)
-        const { user_id, name, image_link, image_color, color } = req.body
+        const { user_id, name, image_link, image_color, color, isIncome } = req.body
         try {
             const result = await Category.create({
                 user_id: user_id,
@@ -27,6 +27,7 @@ class CategoryController {
                 image_link: image_link,
                 image_color: image_color,
                 color: color,
+                isIncome:isIncome
             })
             return res.status(200).send(result)
         } catch (err) {
@@ -70,15 +71,15 @@ class CategoryController {
                         .status(400)
                         .send("Category with id " + req.params.category_id + " not found.")
                 } else {
-                    const { user_id, parent_category, name, image_link, image_color, color } = req.body
+                    const { user_id, name, image_link, image_color, color, isIncome } = req.body
                     Category.update(
                         {
                             user_id: user_id ?? db.sequelize.literal("user_id"),
-                            parent_category: parent_category ?? db.sequelize.literal("parent_category"),
                             name: name ?? db.sequelize.literal("name"),
                             image_link: image_link ?? db.sequelize.literal("image_link"),
                             image_color: image_color ?? db.sequelize.literal("image_color"),
                             color: color ?? db.sequelize.literal("color"),
+                            isIncome: isIncome ?? db.sequelize.literal("isIncome"),
                         },
                         {
                             where: {
