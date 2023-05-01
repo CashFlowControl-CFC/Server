@@ -1,8 +1,15 @@
 const { Category } = require("../db/index")
 const db = require("../db")
+const { Op } = require('sequelize');
 class CategoryController {
     async getCategories(req, res) {
-        await Category.findAll()
+        await Category.findAll({
+            where:{
+                image_link: {
+                    [Op.not]: "tmp"
+                  }
+            }
+        })
             .then((result) => {
                 return res.status(200).send(result)
             })
@@ -119,26 +126,6 @@ class CategoryController {
                     return res
                         .status(400)
                         .send("Category with id: " + req.params.category_id + " not found")
-                }
-            })
-            .catch((err) => {
-                return res.status(400).send(err.message)
-            })
-    }
-    async GetParentCategories(req, res) {
-        const category_id = req.params.category_id
-        await Category.findAll({
-            where: {
-                parent_category: category_id
-            }
-        })
-            .then((result) => {
-                if (result.length > 0) {
-                    return res.status(200).send(result)
-                } else {
-                    return res
-                        .status(400)
-                        .send("Category with id: " + category_id + " haven't any ParentCategory")
                 }
             })
             .catch((err) => {
