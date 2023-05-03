@@ -12,13 +12,19 @@ class AccountController {
             })
     }
     async getAccountByID(req, res) {
-        await Account.findAll({
+        await Account.findOne({
             where: {
                 id: req.params.account_id,
-              },
+            },
         })
             .then((result) => {
-                return res.status(200).send(result)
+                if (result) {
+                    return res.status(200).send(result)
+                } else {
+                    return res
+                        .status(400)
+                        .send("Account with id: " + req.params.account_id + " not found")
+                }
             })
             .catch((err) => {
                 return res.status(400).send(err.message)
@@ -28,7 +34,7 @@ class AccountController {
         await Account.findAll({
             where: {
                 user_id: req.params.user_id,
-              },
+            },
         })
             .then((result) => {
                 return res.status(200).send(result)
@@ -39,13 +45,12 @@ class AccountController {
     }
     async addAccounts(req, res) {
         console.log(req.body)
-        const { user_id, name, cash, color } = req.body
+        const { user_id, name, cash } = req.body
         try {
             const result = await Account.create({
                 user_id: user_id,
                 name: name,
                 cash: cash,
-                color: color,
             })
             return res.status(200).send(result)
         } catch (err) {
@@ -57,8 +62,8 @@ class AccountController {
         await Account.destroy({
             where: {
                 id: req.params.account_id,
-                name:{
-                    [Op.not]:"Total"
+                name: {
+                    [Op.not]: "Total"
                 }
             },
         })
@@ -66,7 +71,7 @@ class AccountController {
                 if (result === 0) {
                     return res
                         .status(400)
-                        .send("Account with id " + req.params.account_id + " not found.Or it has name 'Total'")
+                        .send("Account with id " + req.params.account_id + " not found. Or it has name 'Total'")
                 }
                 return res
                     .status(200)
@@ -81,38 +86,25 @@ class AccountController {
             })
     }
     async patchAccountByID(req, res) {
-        await Account.findOne({
-            where: {
-                id: req.params.account_id,
-            },
-        })
-            .then((result) => {
-                if (result === 0) {
-                    return res
-                        .status(400)
-                        .send("Account with id " + req.params.account_id + " not found.")
-                } else {
-                    const { user_id, name, cash, color } =
-                        req.body
-                    Account.update(
-                        {
-                            user_id: user_id ?? db.sequelize.literal("user_id"),
-                            name: name ?? db.sequelize.literal("name"),
-                            cash: cash ?? db.sequelize.literal("cash"),
-                            color: color ?? db.sequelize.literal("color"),
-                        },
-                        {
-                            where: {
-                                id: req.params.account_id,
-                            },
-                        }
-                    )
-                    return res.status(200).send("Account with ID: " + req.params.account_id + " was changed successful")
+        const { user_id, name, cash } =
+            req.body
+        try {
+            Account.update(
+                {
+                    user_id: user_id ?? db.sequelize.literal("user_id"),
+                    name: name ?? db.sequelize.literal("name"),
+                    cash: cash ?? db.sequelize.literal("cash"),
+                },
+                {
+                    where: {
+                        id: req.params.account_id,
+                    },
                 }
-            })
-            .catch((err) => {
-                return res.status(400).send(err.message)
-            })
+            )
+            return res.status(200).send("Account with ID: " + req.params.account_id + " was changed successful")
+        } catch (error) {
+            return res.status(400).send(error.message)
+        }
     }
 }
 

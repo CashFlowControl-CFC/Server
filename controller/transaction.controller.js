@@ -136,7 +136,7 @@ class TransactionController {
         return res.status(400).send(err.message)
       })
   }
-  async getTransactionByUserID(req, res, isLocal) {
+  async getTransactionsByUserID(req, res, isLocal) {
     console.log(req.body)
     const result = await Transaction.findAll({
       where: {
@@ -155,13 +155,13 @@ class TransactionController {
     }
   }
   async getTransactionByID(req, res) {
-    await Transaction.findAll({
+    await Transaction.findOne({
       where: {
         id: req.params.transaction_id,
       },
     })
       .then((result) => {
-        if (result.length > 0) {
+        if (result) {
           return res.status(200).send(result)
         } else {
           return res

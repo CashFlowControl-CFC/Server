@@ -104,13 +104,13 @@ class GoalController {
             })
     }
     async getGoalByID(req, res) {
-        await Goal.findAll({
+        await Goal.findOne({
             where: {
                 id: req.params.goal_id,
             },
         })
             .then((result) => {
-                if (result.length > 0) {
+                if (result) {
                     return res.status(200).send(result)
                 } else {
                     return res

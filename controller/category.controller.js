@@ -117,13 +117,13 @@ class CategoryController {
             })
     }
     async getCategoryByID(req, res) {
-        await Category.findAll({
+        await Category.findOne({
             where: {
                 id: req.params.category_id,
             },
         })
             .then((result) => {
-                if (result.length > 0) {
+                if (result) {
                     return res.status(200).send(result)
                 } else {
                     return res

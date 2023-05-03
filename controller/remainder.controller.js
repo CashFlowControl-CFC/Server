@@ -105,13 +105,13 @@ class RemainderController {
             })
     }
     async getRemainderByID(req, res) {
-        await Remainder.findAll({
+        await Remainder.findOne({
             where: {
                 id: req.params.remainder_id,
             },
         })
             .then((result) => {
-                if (result.length > 0) {
+                if (result) {
                     return res.status(200).send(result)
                 } else {
                     return res

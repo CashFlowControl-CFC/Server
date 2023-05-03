@@ -12,7 +12,7 @@ class LoadController {
                 throw new Error('User ID is missing')
             }
 
-            const transactions = await TransactionController.getTransactionByUserID(req, res, true)
+            const transactions = await TransactionController.getTransactionsByUserID(req, res, true)
 
             if (!transactions) {
                 throw new Error('Transactions not found')

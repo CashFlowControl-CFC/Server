@@ -82,13 +82,13 @@ class IconController {
             })
     }
     async getIconByID(req, res) {
-        await Icon.findAll({
+        await Icon.findOne({
             where: {
                 id: req.params.icon_id,
             },
         })
             .then((result) => {
-                if (result.length > 0) {
+                if (result) {
                     return res.status(200).send(result)
                 } else {
                     return res

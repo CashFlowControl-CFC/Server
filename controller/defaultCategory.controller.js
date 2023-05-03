@@ -84,13 +84,13 @@ class DefaultCategoryController {
             })
     }
     async getDefaultCategoryByID(req, res) {
-        await DefaultCategory.findAll({
+        await DefaultCategory.findOne({
             where: {
                 id: req.params.defaultcategory_id,
             },
         })
             .then((result) => {
-                if (result.length > 0) {
+                if (result) {
                     return res.status(200).send(result)
                 } else {
                     return res

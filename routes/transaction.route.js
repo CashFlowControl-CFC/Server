@@ -7,7 +7,7 @@ router.get('/',async(req,res)=>{
     await transactionController.getTransactions(req,res)
 })
 router.get('/user/:user_id', async(req,res)=>{
-    await transactionController.getTransactionByUserID(req,res);
+    await transactionController.getTransactionsByUserID(req,res);
 })
 router.get("/:transaction_id",async(req,res)=>{
     await transactionController.getTransactionByID(req,res)

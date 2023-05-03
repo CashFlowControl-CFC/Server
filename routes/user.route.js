@@ -6,7 +6,7 @@ router.get("/",async(req,res)=>{
     await userController.getUsers(req,res)
 })
 router.get("/:user_id",async(req,res)=>{
-    await userController.getUserByUserID(req,res)
+    await userController.getUserByID(req,res)
 })
 router.post("/",async(req,res)=>{
     await userController.addUser(req,res)

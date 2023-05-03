@@ -80,14 +80,14 @@ class UserController {
                 return res.status(400).send(err.message)
             })
     }
-    async getUserByUserID(req, res) {
-        await User.findAll({
+    async getUserByID(req, res) {
+        await User.findOne({
             where: {
                 id: req.params.user_id,
             },
         })
             .then((result) => {
-                if (result.length > 0) {
+                if (result) {
                     return res.status(200).send(result)
                 } else {
                     return res
