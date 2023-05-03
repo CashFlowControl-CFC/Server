@@ -7,7 +7,7 @@ class IconController {
                 return res.status(200).send(result)
             })
             .catch((err) => {
-                return res.status(400).send(err.message)
+                return res.status(400).send(err.errors[0].message)
             })
     }
     async addIcon(req, res) {
@@ -21,7 +21,7 @@ class IconController {
             })
             return res.status(200).send(result)
         } catch (err) {
-            return res.status(400).send(err.message)
+            return res.status(400).send(err.errors[0].message)
         }
     }
     async deleteIconByID(req, res) {
@@ -45,7 +45,7 @@ class IconController {
                     )
             })
             .catch((err) => {
-                return res.status(400).send(err.message)
+                return res.status(400).send(err.errors[0].message)
             })
     }
     async patchIconByID(req, res) {
@@ -78,7 +78,7 @@ class IconController {
                 }
             })
             .catch((err) => {
-                return res.status(400).send(err.message)
+                return res.status(400).send(err.errors[0].message)
             })
     }
     async getIconByID(req, res) {
@@ -97,7 +97,7 @@ class IconController {
                 }
             })
             .catch((err) => {
-                return res.status(400).send(err.message)
+                return res.status(400).send(err.errors[0].message)
             })
     }
     async getIconByCategoryID(req, res) {
@@ -116,7 +116,7 @@ class IconController {
                 }
             })
             .catch((err) => {
-                return res.status(400).send(err.message)
+                return res.status(400).send(err.errors[0].message)
             })
     }
 }

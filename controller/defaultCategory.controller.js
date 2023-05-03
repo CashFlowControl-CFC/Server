@@ -7,7 +7,7 @@ class DefaultCategoryController {
                 return res.status(200).send(result)
             })
             .catch((err) => {
-                return res.status(400).send(err.message)
+                return res.status(400).send(err.errors[0].message)
             })
     }
     async addCategory(req, res) {
@@ -22,7 +22,7 @@ class DefaultCategoryController {
             })
             return res.status(200).send(result)
         } catch (err) {
-            return res.status(400).send(err.message)
+            return res.status(400).send(err.errors[0].message)
         }
     }
     async deleteDefaultCategoryByID(req, res) {
@@ -46,7 +46,7 @@ class DefaultCategoryController {
                     )
             })
             .catch((err) => {
-                return res.status(400).send(err.message)
+                return res.status(400).send(err.errors[0].message)
             })
     }
     async patchDefaultCategoryByID(req, res) {
@@ -80,7 +80,7 @@ class DefaultCategoryController {
                 }
             })
             .catch((err) => {
-                return res.status(400).send(err.message)
+                return res.status(400).send(err.errors[0].message)
             })
     }
     async getDefaultCategoryByID(req, res) {
@@ -99,7 +99,7 @@ class DefaultCategoryController {
                 }
             })
             .catch((err) => {
-                return res.status(400).send(err.message)
+                return res.status(400).send(err.errors[0].message)
             })
     }
 }

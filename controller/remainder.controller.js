@@ -8,7 +8,7 @@ class RemainderController {
                 return res.status(200).send(result)
             })
             .catch((err) => {
-                return res.status(400).send(err.message)
+                return res.status(400).send(err.errors[0].message)
             })
     }
     async addRemainder(req, res) {
@@ -24,7 +24,7 @@ class RemainderController {
             })
             return res.status(200).send(result)
         } catch (err) {
-            return res.status(400).send(err.message)
+            return res.status(400).send(err.errors[0].message)
         }
     }
     async deleteRemainderByID(req, res) {
@@ -48,7 +48,7 @@ class RemainderController {
                     )
             })
             .catch((err) => {
-                return res.status(400).send(err.message)
+                return res.status(400).send(err.errors[0].message)
             })
     }
     async patchRemainderByID(req, res) {
@@ -82,7 +82,7 @@ class RemainderController {
                 }
             })
             .catch((err) => {
-                return res.status(400).send(err.message)
+                return res.status(400).send(err.errors[0].message)
             })
     }
     async getRemainderByUserID(req, res) {
@@ -101,7 +101,7 @@ class RemainderController {
                 }
             })
             .catch((err) => {
-                return res.status(400).send(err.message)
+                return res.status(400).send(err.errors[0].message)
             })
     }
     async getRemainderByID(req, res) {
@@ -120,7 +120,7 @@ class RemainderController {
                 }
             })
             .catch((err) => {
-                return res.status(400).send(err.message)
+                return res.status(400).send(err.errors[0].message)
             })
     }
 }

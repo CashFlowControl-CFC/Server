@@ -8,7 +8,7 @@ class UserController {
                 return res.status(200).send(result)
             })
             .catch((err) => {
-                return res.status(400).send(err.message)
+                return res.status(400).send(err.errors[0].message)
             })
     }
     async addUser(req, res) {
@@ -21,7 +21,7 @@ class UserController {
             })
             return res.status(200).send(result)
         } catch (err) {
-            return res.status(400).send(err.message)
+            return res.status(400).send(err.errors[0].message)
         }
     }
     async deleteUserByID(req, res) {
@@ -45,7 +45,7 @@ class UserController {
                     )
             })
             .catch((err) => {
-                return res.status(400).send(err.message)
+                return res.status(400).send(err.errors[0].message)
             })
     }
     async patchUserByID(req, res) {
@@ -77,7 +77,7 @@ class UserController {
                 }
             })
             .catch((err) => {
-                return res.status(400).send(err.message)
+                return res.status(400).send(err.errors[0].message)
             })
     }
     async getUserByID(req, res) {
@@ -96,7 +96,7 @@ class UserController {
                 }
             })
             .catch((err) => {
-                return res.status(400).send(err.message)
+                return res.status(400).send(err.errors[0].message)
             })
     }
 }

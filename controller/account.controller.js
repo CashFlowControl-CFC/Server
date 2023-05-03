@@ -8,7 +8,7 @@ class AccountController {
                 return res.status(200).send(result)
             })
             .catch((err) => {
-                return res.status(400).send(err.message)
+                return res.status(400).send(err.errors[0].message)
             })
     }
     async getAccountByID(req, res) {
@@ -27,7 +27,7 @@ class AccountController {
                 }
             })
             .catch((err) => {
-                return res.status(400).send(err.message)
+                return res.status(400).send(err.errors[0].message)
             })
     }
     async getAccountsByUserID(req, res) {
@@ -37,10 +37,16 @@ class AccountController {
             },
         })
             .then((result) => {
-                return res.status(200).send(result)
+                if (result) {
+                    return res.status(200).send(result)
+                } else {
+                    return res
+                        .status(400)
+                        .send("User with id:" + req.params.account_id + " hasn't no one Account")
+                }
             })
             .catch((err) => {
-                return res.status(400).send(err.message)
+                return res.status(400).send(err.errors[0].message)
             })
     }
     async addAccounts(req, res) {
@@ -54,7 +60,7 @@ class AccountController {
             })
             return res.status(200).send(result)
         } catch (err) {
-            return res.status(400).send(err.message)
+            return res.status(400).send(err.errors[0].message)
         }
     }
 
@@ -82,7 +88,7 @@ class AccountController {
                     )
             })
             .catch((err) => {
-                return res.status(400).send(err.message)
+                return res.status(400).send(err.errors[0].message)
             })
     }
     async patchAccountByID(req, res) {
@@ -102,8 +108,8 @@ class AccountController {
                 }
             )
             return res.status(200).send("Account with ID: " + req.params.account_id + " was changed successful")
-        } catch (error) {
-            return res.status(400).send(error.message)
+        } catch (err) {
+            return res.status(400).send(err.errors[0].message)
         }
     }
 }
