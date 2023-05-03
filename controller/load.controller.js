@@ -47,8 +47,8 @@ class LoadController {
             }
 
             res.status(200).send(combinedTransactions)
-        } catch (e) {
-            res.status(400).send(e.message)
+        } catch (err) {
+            res.status(400).send(err.errors[0].message)
         }
     }
 
