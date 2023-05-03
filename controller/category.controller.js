@@ -1,28 +1,29 @@
 const { Category } = require("../db/index")
 const db = require("../db")
 const { Op } = require('sequelize');
+const FormattedDate = require('../module/FormattedDate')
 class CategoryController {
     async getCategories(req, res, local) {
         try {
-          const result = await Category.findAll({
-            where: {
-              image_link: {
-                [Op.not]: "tmp"
-              }
+            const result = await Category.findAll({
+                where: {
+                    image_link: {
+                        [Op.not]: "tmp"
+                    }
+                }
+            });
+            if (local) {
+                return result;
+            } else {
+                return res.status(200).send(result);
             }
-          });
-          if (local) {
-            return result;
-          } else {
-            return res.status(200).send(result);
-          }
         } catch (err) {
-          return res.status(400).send(err.message);
+            return res.status(400).send(err.message);
         }
-      }
+    }
     async addCategory(req, res) {
         console.log(req.body)
-        const { user_id, name, image_link, image_color, color, isIncome } = req.body
+        const { user_id, name, image_link, image_color, color, lastUsed, isIncome } = req.body
         try {
             const result = await Category.create({
                 user_id: user_id,
@@ -30,11 +31,12 @@ class CategoryController {
                 image_link: image_link,
                 image_color: image_color,
                 color: color,
-                isIncome:isIncome
+                lastUsed: lastUsed,
+                isIncome: isIncome
             })
             return res.status(200).send(result)
         } catch (err) {
-            return res.status(400).send(err.message)
+            return res.status(400).send(err.errors[0].message)
         }
     }
     async deleteCategoryByID(req, res) {
@@ -74,7 +76,7 @@ class CategoryController {
                         .status(400)
                         .send("Category with id " + req.params.category_id + " not found.")
                 } else {
-                    const { user_id, name, image_link, image_color, color, isIncome } = req.body
+                    const { user_id, name, image_link, image_color, color, lastUsed, isIncome } = req.body
                     Category.update(
                         {
                             user_id: user_id ?? db.sequelize.literal("user_id"),
@@ -82,6 +84,7 @@ class CategoryController {
                             image_link: image_link ?? db.sequelize.literal("image_link"),
                             image_color: image_color ?? db.sequelize.literal("image_color"),
                             color: color ?? db.sequelize.literal("color"),
+                            lastUsed: lastUsed ?? db.sequelize.literal("lastUsed"),
                             isIncome: isIncome ?? db.sequelize.literal("isIncome"),
                         },
                         {

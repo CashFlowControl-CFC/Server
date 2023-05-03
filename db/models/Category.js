@@ -29,6 +29,10 @@ module.exports = function(sequelize){
           type: Sequelize.STRING,
           allowNull: false
         },
+        lastUsed: {
+          type: Sequelize.DATE,
+          allowNull: true
+        },
         isIncome: {
           type: Sequelize.BOOLEAN,
           allowNull: false

@@ -14,7 +14,7 @@ class TransactionController {
       for (const transaction of result) {
         for (const category of categories) {
           if (transaction.category_id === category.id) {
-            const formattedDate = FormattedDate.formatDate(transaction.date)
+            const formattedDate = FormattedDate.toDate(transaction.date)
             combinedTransactions.push({
               'x': category.name,
               'y': transaction.cash,
@@ -55,7 +55,7 @@ class TransactionController {
       }
       for (const category of categories) {
         if (result.category_id === category.id) {
-          const formattedDate = FormattedDate.formatDate(result.date)
+          const formattedDate = FormattedDate.toDate(result.date)
           combinedTransaction = ({
             'x': category.name,
             'y': result.cash,

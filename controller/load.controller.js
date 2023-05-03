@@ -29,7 +29,7 @@ class LoadController {
             for (const transaction of transactions) {
                 for (const category of categories) {
                     if (transaction.category_id === category.id) {
-                        const formattedDate = FormattedDate.formatDate(transaction.date)
+                        const formattedDate = FormattedDate.toDate(transaction.date)
                         combinedTransactions.push({
                             'x': category.name,
                             'y': transaction.cash,
