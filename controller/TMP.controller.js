@@ -3,7 +3,7 @@ const db = require("../db")
 
 class TMPController{
     async GetTMPAccount(req,res){
-        await Tmp.findAll()
+        await Tmp.findOne()
             .then((result) => {
                 return res.status(200).send(result)
             })
