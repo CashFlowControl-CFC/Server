@@ -1,6 +1,6 @@
 const { User } = require("../db/index")
 const db = require("../db")
-
+const bcrypt = require('bcrypt');
 class UserController {
     async getUsers(req, res) {
         await User.findAll()
@@ -12,12 +12,14 @@ class UserController {
             })
     }
     async addUser(req, res) {
-        const { email, hashPass, isConfirmed } = req.body
+        var { email, pass, isConfirmed } = req.body
+        const hashPass = await bcrypt.hashSync(pass, await bcrypt.genSaltSync(16))
+        
         try {
             const result = await User.create({
                 email: email,
                 hashPass: hashPass,
-                isConfirmed: isConfirmed,
+                isConfirmed: isConfirmed ?? false
             })
             return res.status(200).send(result)
         } catch (err) {
@@ -98,6 +100,24 @@ class UserController {
             .catch((err) => {
                 return res.status(400).send(err.errors[0].message)
             })
+    }
+    async getUserByEmail(req,res,isLocal){
+        try {
+            const result = await User.findOne({
+                where: {
+                    email: req.params.email ?? req.body.email,
+                },
+            })
+            if(isLocal){
+                return result
+            }
+            else{
+                return res.status(200).send(result)
+            }
+        } catch (err) {
+            return res.status(400).send(err.errors[0].message)
+        }
+
     }
 }
 

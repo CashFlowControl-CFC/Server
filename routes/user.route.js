@@ -8,6 +8,9 @@ router.get("/",async(req,res)=>{
 router.get("/:user_id",async(req,res)=>{
     await userController.getUserByID(req,res)
 })
+router.get("/email/:email",async(req,res)=>{
+    await userController.getUserByEmail(req,res)
+})
 router.post("/",async(req,res)=>{
     await userController.addUser(req,res)
 })

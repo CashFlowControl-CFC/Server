@@ -13,6 +13,7 @@ const RemainderRoute = require('./routes/remainder.route')
 const GoalRoute = require('./routes/goal.route')
 const DefaultCategoryRoute = require('./routes/defaultCategory.route')
 const IconRoute = require('./routes/icon.route')
+const AuthRoute = require('./routes/auth.route')
 app.use(bodyParser.json())
 app.use(cors())
 
@@ -25,7 +26,7 @@ app.use('/remainder',RemainderRoute)
 app.use('/goal',GoalRoute)
 app.use('/defaultcategory',DefaultCategoryRoute);
 app.use('/icon',IconRoute)
-
+app.use('/auth',AuthRoute)
 app.listen(PORT,()=>{
     db.sequelize
     console.log("Started on "+PORT)
