@@ -1,9 +1,13 @@
+require('dotenv').config()  
+
 const express = require('express')
 const app = express()
 const cors = require('cors')
-const PORT = process.env.PORT || 3000
-const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
 const db = require('./db')
+const helmet = require("helmet")
+
+const PORT = process.env.PORT || 5000
 const TransactionRoute = require('./routes/transaction.route')
 const CategoryRoute = require('./routes/category.route')
 const LoadRoute = require('./routes/onLoad.route')
@@ -15,9 +19,12 @@ const DefaultCategoryRoute = require('./routes/defaultCategory.route')
 const IconRoute = require('./routes/icon.route')
 const AuthRoute = require('./routes/auth.route')
 const TMPAccount = require('./routes/TMP.route')
-app.use(bodyParser.json())
-app.use(cors())
 
+
+app.use(express.json())
+app.use(cookieParser())
+app.use(cors())
+app.use(helmet())
 app.use('/transaction',TransactionRoute)
 app.use('/category',CategoryRoute)
 app.use('/load',LoadRoute)
@@ -29,6 +36,7 @@ app.use('/defaultcategory',DefaultCategoryRoute);
 app.use('/icon',IconRoute)
 app.use('/auth',AuthRoute)
 app.use('/tmp',TMPAccount)
+
 app.listen(PORT,()=>{
     db.sequelize
     console.log("Started on "+PORT)

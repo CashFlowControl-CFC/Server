@@ -30,7 +30,7 @@ class TransactionController {
           }
         }
       }
-      console.log(combinedTransactions)
+
       return res.status(200).send(combinedTransactions)
     } catch (err) {
       return res.status(400).send(err.errors[0].message)
@@ -113,7 +113,6 @@ class TransactionController {
         } else {
           const { category_id, user_id, date, comment, cash, isIncome } =
             req.body
-          console.log("comment: " + comment + "\nid: " + req.params.transaction_id)
           Transaction.update(
             {
               category_id: category_id ?? db.sequelize.literal("category_id"),
@@ -137,7 +136,7 @@ class TransactionController {
       })
   }
   async getTransactionsByUserID(req, res, isLocal) {
-    console.log(req.body)
+
     const result = await Transaction.findAll({
       where: {
         user_id: req.body == null ? req.body.user_id : req.params.user_id,

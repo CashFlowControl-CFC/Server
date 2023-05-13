@@ -22,7 +22,7 @@ class CategoryController {
         }
     }
     async addCategory(req, res) {
-        console.log(req.body)
+       
         const { user_id, name, image_link, image_color, color, lastUsed, isIncome } = req.body
         try {
             const result = await Category.create({
@@ -64,7 +64,7 @@ class CategoryController {
             })
     }
     async patchCategoryByID(req, res) {
-        console.log('Category patch')
+
         await Category.findOne({
             where: {
                 id: req.params.category_id,

@@ -19,7 +19,7 @@ class LoadController {
             }
 
             const categories = await CategoryController.getCategories(req, res, true)
-            console.log(categories);
+
             if (!categories) {
                 throw new Error('Categories not found')
             }
@@ -45,7 +45,7 @@ class LoadController {
                     }
                 }
             }
-
+            
             res.status(200).send(combinedTransactions)
         } catch (err) {
             res.status(400).send(err.errors[0].message)

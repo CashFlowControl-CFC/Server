@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize')
 
-const sequelize = new Sequelize('db_a9744c_nwallet', 'a9744c_nwallet','q1w2e3r4t5y6u7',{
+const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER,process.env.DB_PASS,{
     dialect:"mysql",
-    host:"MYSQL5044.site4now.net"
+    host:process.env.DB_HOST
 })
 
 const Account = require('./models/Account')(sequelize)

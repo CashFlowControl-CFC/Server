@@ -50,7 +50,7 @@ class AccountController {
             })
     }
     async addAccounts(req, res) {
-        console.log(req.body)
+
         const { user_id, name, cash } = req.body
         try {
             const result = await Account.create({

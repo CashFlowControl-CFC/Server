@@ -14,7 +14,7 @@ class RemainderController {
     async addRemainder(req, res) {
         const { user_id, category_id, name, cash, dateRemainde } = req.body
         try {
-            console.log(user_id, category_id, name, cash, dateRemainde)
+
             const result = await Remainder.create({
                 user_id: user_id,
                 category_id: category_id,

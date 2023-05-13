@@ -1,23 +1,23 @@
 const UserController = require('./user.controller')
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken');
 class AuthController{
     async register(req,res){
-        await UserController.addUser(req,res)
+        const user = await UserController.addUser(req,res)
+        const token = jwt.sign({ id: user.id }, 'secretkey');
+
+        res.status(200).json({ token });
     }
     async authenticateUser(req, res) {
         try {
           const user = await UserController.getUserByEmail(req, res, true);
-          console.log('before if');
-          const isPasswordMatch = await bcrypt.compare(req.body.pass, user.hashPass);
+          const isPasswordMatch = await bcrypt.compare(req.body.pass, user.password);
           if (isPasswordMatch) {
-            console.log('logged in');
             return res.status(200).send('true');
           } else {
-            console.log('incorrect password');
             return res.status(401).send('Incorrect password');
           }
         } catch (err) {
-          console.error(err);
           return res.status(500).send('Internal server error');
         }
       }

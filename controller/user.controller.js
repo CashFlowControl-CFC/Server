@@ -11,16 +11,28 @@ class UserController {
                 return res.status(400).send(err.errors[0].message)
             })
     }
-    async addUser(req, res) {
-        var { email, pass, isConfirmed } = req.body
-        const hashPass = await bcrypt.hashSync(pass, await bcrypt.genSaltSync(16))
+    async addUser(req, res,isLocal) {
+        var { email, password, isConfirmed } = req.body
+        const Hashpassword = await bcrypt.hashSync(password,8)
         
         try {
+            const candidate = await User.findOne({
+                where:{
+                    email:email
+                }
+            })
+           
+            if(candidate){
+                return res.status(403).send("That email is taken")
+            }
             const result = await User.create({
                 email: email,
-                hashPass: hashPass,
+                password: Hashpassword,
                 isConfirmed: isConfirmed ?? false
             })
+            if(isLocal){
+                return result
+            }
             return res.status(200).send(result)
         } catch (err) {
             return res.status(400).send(err.errors[0].message)
