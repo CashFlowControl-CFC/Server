@@ -8,7 +8,7 @@ class GoalController {
                 return res.status(200).send(result)
             })
             .catch((err) => {
-                return res.status(400).send(err.errors[0].message)
+                return res.status(400).send(err.message)
             })
     }
     async addGoal(req, res) {
@@ -23,7 +23,7 @@ class GoalController {
             })
             return res.status(200).send(result)
         } catch (err) {
-            return res.status(400).send(err.errors[0].message)
+            return res.status(400).send(err.message)
         }
     }
     async deleteGoalByID(req, res) {
@@ -47,7 +47,7 @@ class GoalController {
                     )
             })
             .catch((err) => {
-                return res.status(400).send(err.errors[0].message)
+                return res.status(400).send(err.message)
             })
     }
     async patchGoalByID(req, res) {
@@ -81,7 +81,7 @@ class GoalController {
                 }
             })
             .catch((err) => {
-                return res.status(400).send(err.errors[0].message)
+                return res.status(400).send(err.message)
             })
     }
     async getGoalByUserID(req, res) {
@@ -100,7 +100,7 @@ class GoalController {
                 }
             })
             .catch((err) => {
-                return res.status(400).send(err.errors[0].message)
+                return res.status(400).send(err.message)
             })
     }
     async getGoalByID(req, res) {
@@ -119,7 +119,7 @@ class GoalController {
                 }
             })
             .catch((err) => {
-                return res.status(400).send(err.errors[0].message)
+                return res.status(400).send(err.message)
             })
     }
 }

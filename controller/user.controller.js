@@ -8,23 +8,21 @@ class UserController {
                 return res.status(200).send(result)
             })
             .catch((err) => {
-                return res.status(400).send(err.errors[0].message)
+                return res.status(400).send(err.message)
             })
     }
     async addUser(req, res,isLocal) {
         var { email, password, isConfirmed } = req.body
-        const Hashpassword = await bcrypt.hashSync(password,8)
-        
         try {
             const candidate = await User.findOne({
                 where:{
                     email:email
                 }
             })
-           
             if(candidate){
                 return res.status(403).send("That email is taken")
             }
+            const Hashpassword = await bcrypt.hashSync(password,8)
             const result = await User.create({
                 email: email,
                 password: Hashpassword,
@@ -35,7 +33,7 @@ class UserController {
             }
             return res.status(200).send(result)
         } catch (err) {
-            return res.status(400).send(err.errors[0].message)
+            return res.status(400).send(err.message)
         }
     }
     async deleteUserByID(req, res) {
@@ -59,7 +57,7 @@ class UserController {
                     )
             })
             .catch((err) => {
-                return res.status(400).send(err.errors[0].message)
+                return res.status(400).send(err.message)
             })
     }
     async patchUserByID(req, res) {
@@ -91,7 +89,7 @@ class UserController {
                 }
             })
             .catch((err) => {
-                return res.status(400).send(err.errors[0].message)
+                return res.status(400).send(err.message)
             })
     }
     async getUserByID(req, res) {
@@ -110,7 +108,7 @@ class UserController {
                 }
             })
             .catch((err) => {
-                return res.status(400).send(err.errors[0].message)
+                return res.status(400).send(err.message)
             })
     }
     async getUserByEmail(req,res,isLocal){
@@ -127,7 +125,7 @@ class UserController {
                 return res.status(200).send(result)
             }
         } catch (err) {
-            return res.status(400).send(err.errors[0].message)
+            return res.status(400).send(err.message)
         }
 
     }

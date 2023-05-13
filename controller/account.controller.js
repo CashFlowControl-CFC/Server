@@ -8,7 +8,7 @@ class AccountController {
                 return res.status(200).send(result)
             })
             .catch((err) => {
-                return res.status(400).send(err.errors[0].message)
+                return res.status(400).send(err.message)
             })
     }
     async getAccountByID(req, res) {
@@ -27,7 +27,7 @@ class AccountController {
                 }
             })
             .catch((err) => {
-                return res.status(400).send(err.errors[0].message)
+                return res.status(400).send(err.message)
             })
     }
     async getAccountsByUserID(req, res) {
@@ -46,7 +46,7 @@ class AccountController {
                 }
             })
             .catch((err) => {
-                return res.status(400).send(err.errors[0].message)
+                return res.status(400).send(err.message)
             })
     }
     async addAccounts(req, res) {
@@ -60,7 +60,7 @@ class AccountController {
             })
             return res.status(200).send(result)
         } catch (err) {
-            return res.status(400).send(err.errors[0].message)
+            return res.status(400).send(err.message)
         }
     }
 
@@ -88,7 +88,7 @@ class AccountController {
                     )
             })
             .catch((err) => {
-                return res.status(400).send(err.errors[0].message)
+                return res.status(400).send(err.message)
             })
     }
     async patchAccountByID(req, res) {
@@ -109,7 +109,7 @@ class AccountController {
             )
             return res.status(200).send("Account with ID: " + req.params.account_id + " was changed successful")
         } catch (err) {
-            return res.status(400).send(err.errors[0].message)
+            return res.status(400).send(err.message)
         }
     }
 }

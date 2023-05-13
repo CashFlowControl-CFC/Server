@@ -8,7 +8,7 @@ class TMPController{
                 return res.status(200).send(result)
             })
             .catch((err) => {
-                return res.status(400).send(err.errors[0].message)
+                return res.status(400).send(err.message)
             })
     }
     async patchTMPAccountByID(req, res) {
@@ -28,7 +28,7 @@ class TMPController{
             )
             return res.status(200).send("Account with ID: " + req.params.account_id + " was changed successful")
         } catch (err) {
-            return res.status(400).send(err.errors[0].message)
+            return res.status(400).send(err.message)
         }
     }
 }

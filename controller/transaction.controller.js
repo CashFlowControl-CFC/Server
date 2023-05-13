@@ -33,7 +33,7 @@ class TransactionController {
 
       return res.status(200).send(combinedTransactions)
     } catch (err) {
-      return res.status(400).send(err.errors[0].message)
+      return res.status(400).send(err.message)
     }
 
   }
@@ -72,7 +72,7 @@ class TransactionController {
       }
       return res.status(200).send(combinedTransaction)
     } catch (err) {
-      return res.status(400).send(err.errors[0].message)
+      return res.status(400).send(err.message)
     }
   }
   async deleteTransactionByID(req, res) {
@@ -96,7 +96,7 @@ class TransactionController {
           )
       })
       .catch((err) => {
-        return res.status(400).send(err.errors[0].message)
+        return res.status(400).send(err.message)
       })
   }
   async patchTransactionByID(req, res) {
@@ -132,7 +132,7 @@ class TransactionController {
         }
       })
       .catch((err) => {
-        return res.status(400).send(err.errors[0].message)
+        return res.status(400).send(err.message)
       })
   }
   async getTransactionsByUserID(req, res, isLocal) {
@@ -169,7 +169,7 @@ class TransactionController {
         }
       })
       .catch((err) => {
-        return res.status(400).send(err.errors[0].message)
+        return res.status(400).send(err.message)
       })
   }
 }

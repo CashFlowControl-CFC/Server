@@ -18,7 +18,7 @@ class CategoryController {
                 return res.status(200).send(result);
             }
         } catch (err) {
-            return res.status(400).send(err.errors[0].message);
+            return res.status(400).send(err.message);
         }
     }
     async addCategory(req, res) {
@@ -36,7 +36,7 @@ class CategoryController {
             })
             return res.status(200).send(result)
         } catch (err) {
-            return res.status(400).send(err.errors[0].message)
+            return res.status(400).send(err.message)
         }
     }
     async deleteCategoryByID(req, res) {
@@ -60,7 +60,7 @@ class CategoryController {
                     )
             })
             .catch((err) => {
-                return res.status(400).send(err.errors[0].message)
+                return res.status(400).send(err.message)
             })
     }
     async patchCategoryByID(req, res) {
@@ -97,7 +97,7 @@ class CategoryController {
                 }
             })
             .catch((err) => {
-                return res.status(400).send(err.errors[0].message)
+                return res.status(400).send(err.message)
             })
     }
     async getCategoryByUserID(req, res) {
@@ -116,7 +116,7 @@ class CategoryController {
                 }
             })
             .catch((err) => {
-                return res.status(400).send(err.errors[0].message)
+                return res.status(400).send(err.message)
             })
     }
     async getCategoryByID(req, res) {
@@ -135,7 +135,7 @@ class CategoryController {
                 }
             })
             .catch((err) => {
-                return res.status(400).send(err.errors[0].message)
+                return res.status(400).send(err.message)
             })
     }
 }
