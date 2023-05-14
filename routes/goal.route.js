@@ -1,6 +1,6 @@
-const express = require('express')
+const express = require("express")
 const router = express.Router()
-const goalController = require('../controller/goal.controller')
+const goalController = require("../controller/goal.controller")
 
 router.get("/",async(req,res)=>{
     await goalController.getGoal(req,res)

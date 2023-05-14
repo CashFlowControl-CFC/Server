@@ -1,7 +1,7 @@
-const Sequelize = require('sequelize')
+const Sequelize = require("sequelize")
 
 module.exports = function(sequelize){
-    return sequelize.define('User', {
+    return sequelize.define("User", {
         id: {
           type: Sequelize.INTEGER,
           primaryKey: true,
@@ -22,6 +22,6 @@ module.exports = function(sequelize){
           }
       },{
         timestamps:false,
-        tableName:'user'
+        tableName:"user"
       })
 }

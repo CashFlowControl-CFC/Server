@@ -1,7 +1,7 @@
-const Sequelize = require('sequelize')
+const Sequelize = require("sequelize")
 
 module.exports = function (sequelize) {
-    return sequelize.define('default_category', {
+    return sequelize.define("default_category", {
         id: {
             type: Sequelize.INTEGER,
             primaryKey: true,
@@ -30,6 +30,6 @@ module.exports = function (sequelize) {
         }
     }, {
         timestamps: false,
-        tableName: 'default_category'
+        tableName: "default_category"
     })
 }

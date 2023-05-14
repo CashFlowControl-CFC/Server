@@ -1,6 +1,6 @@
 const { Account } = require("../db/index")
 const db = require("../db")
-const { Op } = require('sequelize');
+const { Op } = require("sequelize");
 class AccountController {
     async getAccounts(req, res) {
         await Account.findAll()
@@ -77,7 +77,7 @@ class AccountController {
                 if (result === 0) {
                     return res
                         .status(400)
-                        .send("Account with id " + req.params.account_id + " not found. Or it has name 'Total'")
+                        .send("Account with id " + req.params.account_id + " not found. Or it has name Total")
                 }
                 return res
                     .status(200)
@@ -106,8 +106,9 @@ class AccountController {
                         id: req.params.account_id,
                     },
                 }
-            )
-            return res.status(200).send("Account with ID: " + req.params.account_id + " was changed successful")
+            ).then(()=>{
+                return res.status(200).send("Account with ID: " + req.params.account_id + " was changed successful")
+            })
         } catch (err) {
             return res.status(400).send(err.message)
         }

@@ -1,7 +1,7 @@
-const Sequelize = require('sequelize')
+const Sequelize = require("sequelize")
 
 module.exports = function(sequelize){
-    return sequelize.define('Transaction', {
+    return sequelize.define("Transaction", {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -34,6 +34,6 @@ module.exports = function(sequelize){
       }
     },{
       timestamps:false,
-      tableName:'transaction'
+      tableName:"transaction"
     })
 }

@@ -1,4 +1,4 @@
-const {Remainder} = require('../db/index')
+const {Remainder} = require("../db/index")
 const db = require("../db")
 
 class RemainderController {

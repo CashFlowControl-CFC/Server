@@ -1,7 +1,7 @@
 const { Category } = require("../db/index")
 const db = require("../db")
-const { Op } = require('sequelize');
-const FormattedDate = require('../module/FormattedDate')
+const { Op } = require("sequelize");
+const FormattedDate = require("../module/FormattedDate")
 class CategoryController {
     async getCategories(req, res, local) {
         try {
