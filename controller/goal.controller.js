@@ -1,5 +1,5 @@
-const {Goal} = require('../db/index')
-const db = require('../db')
+const {Goal} = require("../db/index")
+const db = require("../db")
 
 class GoalController {
     async getGoal(req, res) {

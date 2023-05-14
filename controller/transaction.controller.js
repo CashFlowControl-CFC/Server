@@ -1,7 +1,7 @@
 const { Transaction } = require("../db/index")
 const db = require("../db")
-const CategoryController = require('./category.controller')
-const FormattedDate = require('../module/FormattedDate')
+const CategoryController = require("./category.controller")
+const FormattedDate = require("../module/FormattedDate")
 class TransactionController {
   async getTransactions(req, res) {
     const combinedTransactions = []
@@ -9,23 +9,23 @@ class TransactionController {
       const result = await Transaction.findAll()
       const categories = await CategoryController.getCategories(req, res, true)
       if (!categories) {
-        throw new Error('Categories not found')
+        throw new Error("Categories not found")
       }
       for (const transaction of result) {
         for (const category of categories) {
           if (transaction.category_id === category.id) {
             const formattedDate = FormattedDate.toDate(transaction.date)
             combinedTransactions.push({
-              'x': category.name,
-              'y': transaction.cash,
-              'fill': category.color,
-              'id': transaction.id,
-              'comment': transaction.comment,
-              'image_link': category.image_link,
-              'image_color': category.image_color,
-              'isIncome': transaction.isIncome,
-              'date': formattedDate,
-              'category_id': category.id
+              "x": category.name,
+              "y": transaction.cash,
+              "fill": category.color,
+              "id": transaction.id,
+              "comment": transaction.comment,
+              "image_link": category.image_link,
+              "image_color": category.image_color,
+              "isIncome": transaction.isIncome,
+              "date": formattedDate,
+              "category_id": category.id
             })
           }
         }
@@ -51,22 +51,22 @@ class TransactionController {
       })
       const categories = await CategoryController.getCategories(req, res, true)
       if (!categories) {
-        throw new Error('Categories not found')
+        throw new Error("Categories not found")
       }
       for (const category of categories) {
         if (result.category_id === category.id) {
           const formattedDate = FormattedDate.toDate(result.date)
           combinedTransaction = ({
-            'x': category.name,
-            'y': result.cash,
-            'fill': category.color,
-            'id': result.id,
-            'comment': result.comment,
-            'image_link': category.image_link,
-            'image_color': category.image_color,
-            'isIncome': result.isIncome,
-            'date': formattedDate,
-            'category_id': category.id
+            "x": category.name,
+            "y": result.cash,
+            "fill": category.color,
+            "id": result.id,
+            "comment": result.comment,
+            "image_link": category.image_link,
+            "image_color": category.image_color,
+            "isIncome": result.isIncome,
+            "date": formattedDate,
+            "category_id": category.id
           })
         }
       }

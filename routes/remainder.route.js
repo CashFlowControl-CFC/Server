@@ -1,6 +1,6 @@
-const express = require('express')
+const express = require("express")
 const router = express.Router()
-const RemainderController = require('../controller/remainder.controller')
+const RemainderController = require("../controller/remainder.controller")
 
 router.get("/",async(req,res)=>{
     await RemainderController.getRemainders(req,res)
